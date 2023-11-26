@@ -44,6 +44,7 @@ const MyComponent = () => {
   const { loading, error, data, fetch, setData } = useApi({
     method: "GET",
     url: "/api/data",
+    lazy: true,
     // ... other configuration options
   });
 
@@ -51,6 +52,31 @@ const MyComponent = () => {
     // Fetch data when the component mounts
     fetch();
   }, []);
+
+  return (
+    <div>
+      {loading && <p>Loading...</p>}
+      {error && <p>Error: {error.message}</p>}
+      {data && <p>Data: {JSON.stringify(data)}</p>}
+    </div>
+  );
+};
+
+export default MyComponent;
+```
+
+OR
+
+```jsx
+import { useEffect } from "react";
+import useApi from "react-api-wrapper-hook";
+
+const MyComponent = () => {
+  const { loading, error, data, fetch, setData } = useApi({
+    method: "GET",
+    url: "/api/data",
+    // ... other configuration options
+  });
 
   return (
     <div>
