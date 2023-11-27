@@ -2,7 +2,7 @@
   "name": "react-api-wrapper-hook",
   "version": "1.0.1",
   "description": "",
-  "main": "index.js",
+  "main": "index.ts",
   "repository": "https://github.com/alireza847-programmer/react-api-wrapper-hook",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
