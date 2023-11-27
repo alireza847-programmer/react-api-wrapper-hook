@@ -24,7 +24,6 @@ Before using the `useApi` hook, you need to configure the API wrapper in your ma
 import { configureApiWrapper } from "react-api-wrapper-hook";
 import axios from "axios"; // or import { create } from 'apisauce';
 import { yourCustomInterceptor } from "path/to/your/interceptor";
-import { YourResponseDataType } from "path/to/your/types";
 
 const api = axios.create({
   // Your Axios configuration or ApiSauce create method here
@@ -41,17 +40,17 @@ Now you can use the `useApi` hook in your components:
 ```jsx
 import { useEffect } from "react";
 import useApi from "react-api-wrapper-hook";
+import { YourResponseDataType } from "path/to/your/types";
 
 const MyComponent = () => {
-  const { loading, error, data, fetch, setData } =
-    useApi <
-    YourResponseDataType >
+  const { loading, error, data, fetch, setData } = useApi<YourResponseDataType>(
     {
       method: "GET",
       url: "/api/data",
       lazy: true,
       // ... other configuration options
     };
+  )
 
   useEffect(() => {
     // Fetch data when the component mounts
