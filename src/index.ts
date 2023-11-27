@@ -1,21 +1,21 @@
-import {useEffect, useState} from 'react';
-import {ApiOkResponse, ApiStateType} from './types/useApi';
-import {Props, ReCallProps} from './types/useApi';
-import {getApiWrapper} from './configApiWrapper';
+import { useEffect, useState } from "react";
+import { ApiOkResponse, ApiStateType } from "./types/useApi";
+import { Props, ReCallProps } from "./types/useApi";
+import { getApiWrapper } from "./utils/configApiWrapper";
 
 const useApi = <ResponseType, FormattedDataType = ResponseType>(
-  props: Props<ResponseType, FormattedDataType>,
+  props: Props<ResponseType, FormattedDataType>
 ) => {
   const {
-    method = 'GET',
+    method = "GET",
     url,
     headers,
     payload,
     initialData,
     lazy,
-    dataFormatter = content => content,
-    onError = err => err,
-    onSuccess = data => data,
+    dataFormatter = (content) => content,
+    onError = (err) => err,
+    onSuccess = (data) => data,
     onFinish = () => {},
     baseURL,
     callCondition = true,
@@ -34,10 +34,10 @@ const useApi = <ResponseType, FormattedDataType = ResponseType>(
   }, [callCondition]);
 
   const getDataRequest = async (
-    props?: ReCallProps<FormattedDataType>,
+    props?: ReCallProps<FormattedDataType>
   ): Promise<any> => {
     try {
-      setData(data => ({
+      setData((data) => ({
         ...data,
         error: false,
         loading: true,
@@ -59,15 +59,15 @@ const useApi = <ResponseType, FormattedDataType = ResponseType>(
 
       if (props?.onSuccess) {
         return props.onSuccess(
-          dataFormatter(response.data as ResponseType) as FormattedDataType,
+          dataFormatter(response.data as ResponseType) as FormattedDataType
         );
       } else {
         return onSuccess(
-          dataFormatter(response.data as ResponseType) as FormattedDataType,
+          dataFormatter(response.data as ResponseType) as FormattedDataType
         );
       }
     } catch (error) {
-      setData(data => ({
+      setData((data) => ({
         ...data,
         error: true,
         loading: false,
@@ -88,7 +88,8 @@ const useApi = <ResponseType, FormattedDataType = ResponseType>(
     error: data.error,
     data: data.data,
     fetch: getDataRequest,
-    setData: (data?: FormattedDataType) => setData(prev => ({...prev, data})),
+    setData: (data?: FormattedDataType) =>
+      setData((prev) => ({ ...prev, data })),
   };
 };
 

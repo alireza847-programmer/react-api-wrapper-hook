@@ -25,9 +25,6 @@ const api = axios.create({
   // Your Axios configuration or ApiSauce create method here
 });
 
-// Apply your custom interceptor if needed
-yourCustomInterceptor(api);
-
 // Configure the API wrapper
 configureApiWrapper(api);
 ```
