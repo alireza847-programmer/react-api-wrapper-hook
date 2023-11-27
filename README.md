@@ -8,6 +8,10 @@ A flexible React hook for handling API calls with support for different API wrap
 npm install react-api-wrapper-hook
 ```
 
+```bash
+yarn add react-api-wrapper-hook
+```
+
 ## Usage
 
 ### Configuration
@@ -20,6 +24,7 @@ Before using the `useApi` hook, you need to configure the API wrapper in your ma
 import { configureApiWrapper } from "react-api-wrapper-hook";
 import axios from "axios"; // or import { create } from 'apisauce';
 import { yourCustomInterceptor } from "path/to/your/interceptor";
+import { YourResponseDataType } from "path/to/your/types";
 
 const api = axios.create({
   // Your Axios configuration or ApiSauce create method here
@@ -38,12 +43,15 @@ import { useEffect } from "react";
 import useApi from "react-api-wrapper-hook";
 
 const MyComponent = () => {
-  const { loading, error, data, fetch, setData } = useApi({
-    method: "GET",
-    url: "/api/data",
-    lazy: true,
-    // ... other configuration options
-  });
+  const { loading, error, data, fetch, setData } =
+    useApi <
+    YourResponseDataType >
+    {
+      method: "GET",
+      url: "/api/data",
+      lazy: true,
+      // ... other configuration options
+    };
 
   useEffect(() => {
     // Fetch data when the component mounts
@@ -67,11 +75,13 @@ OR
 ```jsx
 import { useEffect } from "react";
 import useApi from "react-api-wrapper-hook";
+import { YourResponseDataType , YourResponseDataTypeAfterFormat }  from 'path/to/your/types'
 
 const MyComponent = () => {
-  const { loading, error, data, fetch, setData } = useApi({
+  const { loading, error, data, fetch, setData } = useApi<YourResponseDataType,YourResponseDataTypeAfterFormat>({
     method: "GET",
     url: "/api/data",
+    dataFormatter : (data) => data.stringify()
     // ... other configuration options
   });
 
