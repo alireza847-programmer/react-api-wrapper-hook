@@ -1,5 +1,5 @@
 import { renderHook, act, render, waitFor } from "@testing-library/react";
-import { configureApiWrapper, useApi } from "../index";
+import { configureApiWrapper, useApi } from "../src/index";
 import { describe, it, expect, jest } from "@jest/globals";
 
 describe("useApi Hook with Caching", () => {

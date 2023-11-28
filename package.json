@@ -2,10 +2,11 @@
   "name": "react-api-wrapper-hook",
   "version": "1.0.4",
   "description": "",
-  "main": "index.ts",
+  "main": "./src/index.ts",
   "repository": "https://github.com/alireza847-programmer/react-api-wrapper-hook",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "build": "tsc"
   },
   "author": "Alireza Sheykholeslami",
   "license": "ISC",
@@ -25,6 +26,7 @@
     "jest-environment-jsdom": "^29.7.0",
     "react-dom": "^18.2.0",
     "ts-jest": "^29.1.1",
+    "ts-loader": "^9.5.1",
     "ts-node": "^10.9.1",
     "typescript": "^5.3.2"
   }
