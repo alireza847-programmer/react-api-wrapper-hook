@@ -1,6 +1,5 @@
 Certainly! Here's a more complete version of the README:
 
-````markdown
 # react-api-wrapper-hook
 
 A flexible React hook for handling API calls with support for different API wrappers like Axios or ApiSauce.
@@ -10,7 +9,6 @@ A flexible React hook for handling API calls with support for different API wrap
 ```bash
 npm install react-api-wrapper-hook
 ```
-````
 
 ```bash
 yarn add react-api-wrapper-hook
@@ -162,7 +160,4 @@ the API call.
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-```
-
 This complete README includes detailed instructions on configuration, usage, and caching. It provides examples and covers various scenarios. Feel free to adjust it further based on your specific needs.
-```
