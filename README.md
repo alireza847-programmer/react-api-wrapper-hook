@@ -64,7 +64,7 @@ const MyComponent = () => {
   return (
     <div>
       {loading && <p>Loading...</p>}
-      {error && <p>Error: {error.message}</p>}
+      {error && <p>Error: {error}</p>}
       {data && <p>Data: {JSON.stringify(data)}</p>}
     </div>
   );
@@ -91,7 +91,7 @@ const MyComponent = () => {
   return (
     <div>
       {loading && <p>Loading...</p>}
-      {error and <p>Error: {error.message}</p>}
+      {error and <p>Error: {error}</p>}
       {data && <p>Data: {JSON.stringify(data)}</p>}
     </div>
   );
