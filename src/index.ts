@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { ApiOkResponse, ApiStateType } from "./types/useApi";
 import { Props, ReCallProps } from "./types/useApi";
 import { getApiWrapper } from "./utils/configApiWrapper";
+import { getCacheDataWithCacheKey, addNewCache } from "./utils/caching";
 
 const useApi = <ResponseType, FormattedDataType = ResponseType>(
   props: Props<ResponseType, FormattedDataType>
@@ -19,6 +20,7 @@ const useApi = <ResponseType, FormattedDataType = ResponseType>(
     onFinish = () => {},
     baseURL,
     callCondition = true,
+    cache,
   } = props;
 
   const [data, setData] = useState<ApiStateType<FormattedDataType>>({
@@ -34,31 +36,52 @@ const useApi = <ResponseType, FormattedDataType = ResponseType>(
   }, [callCondition]);
 
   const getDataRequest = async (
-    props?: ReCallProps<FormattedDataType>
+    functionProps?: ReCallProps<FormattedDataType>
   ): Promise<any> => {
     try {
+      // Check if the data is available in the cache
+      if (cache) {
+        const cacheData = await getCacheDataWithCacheKey(cache.key);
+        if (cacheData) {
+          setData({ ...data, data: cacheData.value });
+          return;
+        }
+      }
+
+      // Fetch data from the API
       setData((data) => ({
         ...data,
         error: false,
         loading: true,
       }));
+
       const apiWrapper = getApiWrapper();
       const response = (await apiWrapper.any({
         method,
         headers,
-        url: props?.url || url,
-        data: props?.payload || payload,
+        url: functionProps?.url || url,
+        data: functionProps?.payload || payload,
         baseURL,
       })) as any as ApiOkResponse<ResponseType>;
 
+      // Update state with fetched data
       setData({
         loading: false,
         error: false,
         data: dataFormatter(response.data as ResponseType) as FormattedDataType,
       });
 
-      if (props?.onSuccess) {
-        return props.onSuccess(
+      // Add new data to the cache
+      if (cache) {
+        await addNewCache(
+          cache,
+          dataFormatter(response.data as ResponseType) as FormattedDataType
+        );
+      }
+
+      // Trigger onSuccess callback
+      if (functionProps?.onSuccess) {
+        return functionProps.onSuccess(
           dataFormatter(response.data as ResponseType) as FormattedDataType
         );
       } else {
@@ -67,18 +90,20 @@ const useApi = <ResponseType, FormattedDataType = ResponseType>(
         );
       }
     } catch (error) {
+      // Handle errors
       setData((data) => ({
         ...data,
         error: true,
         loading: false,
       }));
 
-      if (props?.onError) {
-        return props.onError(error);
+      if (functionProps?.onError) {
+        return functionProps.onError(error);
       } else {
         return onError(error);
       }
     } finally {
+      // Trigger onFinish callback
       onFinish();
     }
   };

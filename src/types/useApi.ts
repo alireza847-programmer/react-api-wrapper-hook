@@ -1,25 +1,29 @@
 export type Method =
-  | 'get'
-  | 'GET'
-  | 'delete'
-  | 'DELETE'
-  | 'head'
-  | 'HEAD'
-  | 'options'
-  | 'OPTIONS'
-  | 'post'
-  | 'POST'
-  | 'put'
-  | 'PUT'
-  | 'patch'
-  | 'PATCH'
-  | 'purge'
-  | 'PURGE'
-  | 'link'
-  | 'LINK'
-  | 'unlink'
-  | 'UNLINK';
+  | "get"
+  | "GET"
+  | "delete"
+  | "DELETE"
+  | "head"
+  | "HEAD"
+  | "options"
+  | "OPTIONS"
+  | "post"
+  | "POST"
+  | "put"
+  | "PUT"
+  | "patch"
+  | "PATCH"
+  | "purge"
+  | "PURGE"
+  | "link"
+  | "LINK"
+  | "unlink"
+  | "UNLINK";
 
+export interface CacheData {
+  key: string;
+  timeout: number;
+}
 export interface Props<ResponseType, FormattedDataType = ResponseType> {
   url: string;
   method?: Method;
@@ -33,11 +37,11 @@ export interface Props<ResponseType, FormattedDataType = ResponseType> {
   baseURL?: string;
   onFinish?: () => void;
   callCondition?: boolean;
-  apiWrapper?: any;
+  cache?: CacheData;
 }
 
 export type ReCallProps<T> = Partial<
-  Pick<Props<T>, 'url' | 'payload' | 'onSuccess' | 'onError' | 'onFinish'>
+  Pick<Props<T>, "url" | "payload" | "onSuccess" | "onError" | "onFinish">
 >;
 
 export interface ApiStateType<T> {
@@ -46,7 +50,7 @@ export interface ApiStateType<T> {
   error: boolean;
 }
 
-export type HEADERS = {[key: string]: string};
+export type HEADERS = { [key: string]: string };
 
 export interface ApiOkResponse<T> {
   ok: true;
