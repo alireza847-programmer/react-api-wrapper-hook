@@ -1,3 +1,6 @@
+Certainly! Here's a more complete version of the README:
+
+````markdown
 # react-api-wrapper-hook
 
 A flexible React hook for handling API calls with support for different API wrappers like Axios or ApiSauce.
@@ -7,6 +10,7 @@ A flexible React hook for handling API calls with support for different API wrap
 ```bash
 npm install react-api-wrapper-hook
 ```
+````
 
 ```bash
 yarn add react-api-wrapper-hook
@@ -87,7 +91,7 @@ const MyComponent = () => {
   return (
     <div>
       {loading && <p>Loading...</p>}
-      {error && <p>Error: {error.message}</p>}
+      {error and <p>Error: {error.message}</p>}
       {data && <p>Data: {JSON.stringify(data)}</p>}
     </div>
   );
@@ -95,6 +99,31 @@ const MyComponent = () => {
 
 export default MyComponent;
 ```
+
+### Caching
+
+The library supports caching of API responses. To enable caching, you can provide the `cache` configuration option in the `useApi` hook:
+
+```jsx
+const MyComponent = () => {
+  const { loading, error, data, fetch, setData } =
+    useApi <
+    YourResponseDataType >
+    {
+      method: "GET",
+      url: "/api/data",
+      cache: {
+        key: "unique-cache-key", // Provide a unique key for this cache
+        timeout: 60, // Cache timeout in seconds
+      },
+      // ... other configuration options
+    };
+
+  // Rest of the component code...
+};
+```
+
+In this example, the API response will be cached using the specified key (`unique-cache-key`) for 60 seconds. Subsequent requests with the same key will use the cached data until the cache expires.
 
 ## API
 
@@ -114,6 +143,7 @@ export default MyComponent;
 - `onFinish` (optional): Callback function executed after the request is complete.
 - `baseURL` (optional): Base URL for the API.
 - `callCondition` (optional): Condition to determine whether the API call should be made.
+- `cache` (optional): Configuration for caching the API response. Provide an object with `key` (unique cache key) and `timeout` (cache timeout in seconds).
 
 #### Return Value
 
@@ -122,9 +152,17 @@ An object with the following properties:
 - `loading`: A boolean indicating whether the request is in progress.
 - `error`: An error object if the request encounters an error.
 - `data`: The formatted response data.
-- `fetch`: A function to manually trigger the API call.
+- `fetch`: A function to manually trigger
+
+the API call.
+
 - `setData`: A function to manually set data in the hook.
 
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+```
+
+This complete README includes detailed instructions on configuration, usage, and caching. It provides examples and covers various scenarios. Feel free to adjust it further based on your specific needs.
+```
