@@ -1,9 +1,11 @@
 import { Caches } from "../../types/caches";
 import { CacheData } from "../../types/useApi";
+import storage from "../storage";
 
-const getLocalStorageItem = (key: string): Caches => {
+const getLocalStorageItem = async (key: string): Promise<Caches> => {
   try {
-    const stringCaches = localStorage.getItem(key);
+    const stringCaches = await storage.default?.getItem(key);
+    console.log(JSON.parse(stringCaches || "[]"));
     return JSON.parse(stringCaches || "[]");
   } catch (error) {
     console.error("Error retrieving from localStorage:", error);
@@ -11,16 +13,16 @@ const getLocalStorageItem = (key: string): Caches => {
   }
 };
 
-const setLocalStorageItem = (key: string, value: Caches) => {
+const setLocalStorageItem = async (key: string, value: Caches) => {
   try {
-    localStorage.setItem(key, JSON.stringify(value));
+    await storage.default?.setItem(key, JSON.stringify(value));
   } catch (error) {
     console.error("Error storing in localStorage:", error);
   }
 };
 
-export const addNewCache = (cacheData: CacheData, data: any) => {
-  const caches = getLocalStorageItem("caches");
+export const addNewCache = async (cacheData: CacheData, data: any) => {
+  const caches = await getLocalStorageItem("caches");
   const newCache = {
     key: cacheData.key,
     value: data,
@@ -30,8 +32,8 @@ export const addNewCache = (cacheData: CacheData, data: any) => {
   setLocalStorageItem("caches", [...caches, newCache]);
 };
 
-export const isCacheExpired = (cacheKey: string) => {
-  const cacheItem = getCacheItem(cacheKey);
+export const isCacheExpired = async (cacheKey: string) => {
+  const cacheItem = await getCacheItem(cacheKey);
   if (cacheItem) {
     const currentDate = new Date();
     const fetchTime = new Date(cacheItem?.fetchTime);
@@ -42,21 +44,21 @@ export const isCacheExpired = (cacheKey: string) => {
   return false;
 };
 
-export const getCacheItem = (cacheKey: string) => {
-  const caches = getLocalStorageItem("caches");
+export const getCacheItem = async (cacheKey: string) => {
+  const caches = await getLocalStorageItem("caches");
   return caches.find((item) => item.key === cacheKey);
 };
 
-export const isCacheExists = (cacheKey: string) => {
-  const caches = getLocalStorageItem("caches");
+export const isCacheExists = async (cacheKey: string) => {
+  const caches = await getLocalStorageItem("caches");
   return caches.findIndex((item) => item.key === cacheKey) === -1;
 };
 
-export const getCacheDataWithCacheKey = (cacheKey: string) => {
+export const getCacheDataWithCacheKey = async (cacheKey: string) => {
   try {
-    const caches = getLocalStorageItem("caches");
+    const caches = await getLocalStorageItem("caches");
     const data = caches.find((item) => item.key === cacheKey);
-    if (isCacheExpired(cacheKey)) {
+    if (await isCacheExpired(cacheKey)) {
       const updatedCaches = caches.filter((item) => item.key !== cacheKey);
       setLocalStorageItem("caches", updatedCaches);
       return undefined;
