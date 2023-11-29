@@ -1,6 +1,6 @@
 # react-api-wrapper-hook
 
-A flexible React hook for handling API calls with support for different API wrappers like Axios or ApiSauce.
+A flexible React hook for handling API calls with support for axios and apisauce API wrappers.
 
 ## Installation
 
