@@ -5,7 +5,6 @@ import storage from "../storage";
 const getLocalStorageItem = async (key: string): Promise<Caches> => {
   try {
     const stringCaches = await storage.default?.getItem(key);
-    console.log(JSON.parse(stringCaches || "[]"));
     return JSON.parse(stringCaches || "[]");
   } catch (error) {
     console.error("Error retrieving from localStorage:", error);
