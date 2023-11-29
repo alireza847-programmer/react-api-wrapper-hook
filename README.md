@@ -12,6 +12,20 @@ npm install react-api-wrapper-hook
 yarn add react-api-wrapper-hook
 ```
 
+## This package support both web and react native projects :
+
+If you are using React Native make sure React Native async storage is installed
+
+```bash
+npm install @react-native-async-storage/async-storage
+```
+
+OR
+
+```bash
+yarn add @react-native-async-storage/async-storage
+```
+
 ## Usage
 
 ### Configuration
