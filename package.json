@@ -40,9 +40,7 @@
   "author": "Alireza Sheykholeslami",
   "license": "ISC",
   "dependencies": {},
-  "peerDependencies": {
-    "react": "^18.2.0"
-  },
+  "peerDependencies": {},
   "devDependencies": {
     "@babel/core": "^7.23.3",
     "@babel/preset-env": "^7.23.3",
@@ -59,6 +57,7 @@
     "ts-jest": "^29.1.1",
     "ts-loader": "^9.5.1",
     "ts-node": "^10.9.1",
-    "typescript": "^5.3.2"
+    "typescript": "^5.3.2",
+    "react": "^18.2.0"
   }
 }
