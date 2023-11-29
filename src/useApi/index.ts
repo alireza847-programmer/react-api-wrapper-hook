@@ -56,7 +56,7 @@ const useApi = <ResponseType, FormattedDataType = ResponseType>(
       }));
 
       const apiWrapper = getApiWrapper();
-      const response = (await apiWrapper.any({
+      const response = (await apiWrapper({
         method,
         headers,
         url: functionProps?.url || url,

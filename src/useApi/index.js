@@ -35,7 +35,7 @@ const useApi = (props) => {
             // Fetch data from the API
             setData((data) => (Object.assign(Object.assign({}, data), { error: false, loading: true })));
             const apiWrapper = getApiWrapper();
-            const response = (yield apiWrapper.any({
+            const response = (yield apiWrapper({
                 method,
                 headers,
                 url: (functionProps === null || functionProps === void 0 ? void 0 : functionProps.url) || url,

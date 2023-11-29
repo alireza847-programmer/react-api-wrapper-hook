@@ -1,6 +1,6 @@
 {
   "name": "react-api-wrapper-hook",
-  "version": "1.0.4",
+  "version": "1.1.0",
   "description": "",
   "main": "./src/index.ts",
   "repository": "https://github.com/alireza847-programmer/react-api-wrapper-hook",
