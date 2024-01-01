@@ -4,8 +4,8 @@ import { Props, ReCallProps } from "../types/useApi";
 import { getApiWrapper } from "../utils/configApiWrapper";
 import { getCacheDataWithCacheKey, addNewCache } from "../utils/caching";
 
-const useApi = <ResponseType, FormattedDataType = ResponseType>(
-  props: Props<ResponseType, FormattedDataType>
+const useApi = <ResponseType, FormattedDataType = ResponseType, ErrorType = unknown>(
+  props: Props<ResponseType, FormattedDataType, ErrorType>
 ) => {
   const {
     method = "GET",
@@ -49,7 +49,7 @@ const useApi = <ResponseType, FormattedDataType = ResponseType>(
       }
 
       // Fetch data from the API
-      setData((data) => ({
+      setData((data: ApiStateType<FormattedDataType>) => ({
         ...data,
         error: false,
         loading: true,
@@ -89,9 +89,9 @@ const useApi = <ResponseType, FormattedDataType = ResponseType>(
           dataFormatter(response.data as ResponseType) as FormattedDataType
         );
       }
-    } catch (error) {
+    } catch (error: any) {
       // Handle errors
-      setData((data) => ({
+      setData((data: ApiStateType<FormattedDataType>) => ({
         ...data,
         error: true,
         loading: false,
@@ -114,7 +114,7 @@ const useApi = <ResponseType, FormattedDataType = ResponseType>(
     data: data.data,
     fetch: getDataRequest,
     setData: (data?: FormattedDataType) =>
-      setData((prev) => ({ ...prev, data })),
+      setData((prev: ApiStateType<FormattedDataType>) => ({ ...prev, data })),
   };
 };
 

@@ -24,7 +24,7 @@ export interface CacheData {
   key: string;
   timeout: number;
 }
-export interface Props<ResponseType, FormattedDataType = ResponseType> {
+export interface Props<ResponseType, FormattedDataType = ResponseType, ErrorType = unknown> {
   url: string;
   method?: Method;
   payload?: any;
@@ -32,7 +32,7 @@ export interface Props<ResponseType, FormattedDataType = ResponseType> {
   initialData?: FormattedDataType;
   lazy?: boolean;
   dataFormatter?: (data: ResponseType) => FormattedDataType | ResponseType;
-  onError?: (error: unknown) => void;
+  onError?: (error: ErrorType) => void;
   onSuccess?: (data: FormattedDataType) => void;
   baseURL?: string;
   onFinish?: () => void;
